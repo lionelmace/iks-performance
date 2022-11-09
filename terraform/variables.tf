@@ -84,7 +84,7 @@ variable "worker_pools" {
     {
       pool_name        = "dev"
       machine_type     = "bx2.4x16"
-      workers_per_zone = 1
+      workers_per_zone = 2
       # },
       # {
       #     pool_name        = "odf"

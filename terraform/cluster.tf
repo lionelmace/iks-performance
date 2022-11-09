@@ -7,7 +7,6 @@ resource "ibm_container_vpc_cluster" "cluster" {
   update_all_workers              = true
   disable_public_service_endpoint = false
   kube_version                    = var.kube_version
-  cos_instance_crn                = var.is_openshift_cluster ? ibm_resource_instance.openshift_cos_instance[0].id : null
 
   dynamic "zones" {
     for_each = { for subnet in ibm_is_subnet.subnet : subnet.id => subnet }

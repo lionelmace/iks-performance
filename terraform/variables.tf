@@ -36,7 +36,7 @@ variable "environment_id" {
 variable "tags" {
   description = "List of Tags"
   type        = list(string)
-  default     = ["tf", "bivwak"]
+  default     = ["tf", "showme"]
 }
 
 ##############################################################################

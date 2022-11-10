@@ -157,7 +157,7 @@ Let's deploy an NGINX app
               service:
                 name: mynginx
                 port:
-                number: 80
+                  number: 80
     EOF
     ```
 

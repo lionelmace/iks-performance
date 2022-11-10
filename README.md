@@ -127,7 +127,7 @@ Let's deploy an NGINX app
     spec:
         ports:
         - protocol: TCP
-          port: 8080
+          port: 80
         selector:
           app: mynginx
           tier: frontend
@@ -157,7 +157,7 @@ Let's deploy an NGINX app
               service:
                 name: mynginx
                 port:
-                number: 8080
+                number: 80
     EOF
     ```
 

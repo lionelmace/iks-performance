@@ -110,9 +110,9 @@ Let's deploy an NGINX app
               httpGet:
                 path: /healthcheck/
                 port: 8080
-            initialDelaySeconds: 3
-            periodSeconds: 3
-            failureThreshold: 2        
+              initialDelaySeconds: 3
+              periodSeconds: 3
+              failureThreshold: 2        
 
     ---
     # Service to expose frontend

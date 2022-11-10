@@ -45,12 +45,12 @@ variable "tags" {
 
 variable "cluster_name_std" {
   description = "Cluster Name"
-  default     = "standard"
+  default     = "cluster-std"
 }
 
 variable "cluster_name_perf" {
   description = "Cluster Name"
-  default     = "standard"
+  default     = "cluster-perf"
 }
 
 variable "machine_type" {

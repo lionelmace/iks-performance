@@ -66,10 +66,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - iks-483cccd2f0d38128dd40d2b711142ba9-0000.eu-de.containers.appdomain.cloud
-      secretName: iks-483cccd2f0d38128dd40d2b711142ba9-0000.eu-de
+      - dev-cluster-std-483cccd2f0d38128dd40d2b711142ba9-0000.eu-de.containers.appdomain.cloud
+      secretName: dev-cluster-std-483cccd2f0d38128dd40d2b711142ba9-0000
   rules:
-  - host: iks-483cccd2f0d38128dd40d2b711142ba9-0000.eu-de.containers.appdomain.cloud
+  - host: dev-cluster-std-483cccd2f0d38128dd40d2b711142ba9-0000.eu-de.containers.appdomain.cloud
     http:
       paths:
       - path: /

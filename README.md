@@ -82,32 +82,32 @@ Let's deploy an NGINX app
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-    name: mynginx
-    namespace: default
+      name: mynginx
+      namespace: default
     spec:
-    replicas: 3
-    selector:
+      replicas: 3
+      selector:
         matchLabels:
-        app: mynginx
-    template:   # create pods using pod definition in this template
+          app: mynginx
+      template:   # create pods using pod definition in this template
         metadata:
-        labels:
+          labels:
             app: mynginx
             tier: frontend
         spec:
-        containers:
-        - name: mynginx
+          containers:
+          - name: mynginx
             image: nginx
             imagePullPolicy: Always
             resources:
-            requests:
+              requests:
                 cpu: 250m     # 250 millicores = 1/4 core
                 memory: 128Mi # 128 MB
-            limits:
+              limits:
                 cpu: 500m
                 memory: 384Mi
             livenessProbe:
-            httpGet:
+              httpGet:
                 path: /healthcheck/
                 port: 8080
             initialDelaySeconds: 3
@@ -119,42 +119,42 @@ Let's deploy an NGINX app
     apiVersion: v1
     kind: Service
     metadata:
-    name: mynginx
-    namespace: default
-    labels:
+      name: mynginx
+      namespace: default
+      labels:
         app: mynginx
         tier: frontend
     spec:
         ports:
         - protocol: TCP
-        port: 8080
+          port: 8080
         selector:
-        app: mynginx
-        tier: frontend
+          app: mynginx
+          tier: frontend
 
     ---
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-    name: mynginx-ingress
-    namespace: default
-    annotations:
+      name: mynginx-ingress
+      namespace: default
+      annotations:
         kubernetes.io/ingress.class: "public-iks-k8s-nginx"
         #kubernetes.io/ingress.class: "private-iks-k8s-nginx"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
     spec:
-    tls:
+      tls:
         - hosts:
         - $IKS_INGRESS_URL
         secretName: $IKS_INGRESS_SECRET
-    rules:
-    - host: $IKS_INGRESS_URL
+      rules:
+      - host: $IKS_INGRESS_URL
         http:
         paths:
         - path: /
             pathType: Prefix
             backend:
-            service:
+              service:
                 name: mynginx
                 port:
                 number: 8080

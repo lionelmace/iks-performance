@@ -166,3 +166,25 @@ Let's deploy an NGINX app
     ```sh
     open https://$IKS_INGRESS_URL
     ```
+
+## Test performance
+
+Let's use the k6 open-source load testing tool
+
+1. Let's install k6
+
+    ```sh
+    brew install k6
+    ```
+
+1. Test an app
+
+    ```sh
+    k6 run - <<EOF
+    import http from 'k6/http';
+
+    export default function () {
+      http.get('http://$IKS_INGRESS_URL');
+    }
+    EOF
+    ```

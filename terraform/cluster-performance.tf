@@ -1,5 +1,5 @@
-resource "ibm_container_vpc_cluster" "cluster" {
-  name                            = format("%s-%s", var.environment_id, var.cluster_name)
+resource "ibm_container_vpc_cluster" "cluster_perf" {
+  name                            = format("%s-%s", var.environment_id, var.cluster_name_perf)
   vpc_id                          = ibm_is_vpc.vpc.id
   flavor                          = var.machine_type
   worker_count                    = var.worker_count
@@ -20,27 +20,26 @@ resource "ibm_container_vpc_cluster" "cluster" {
   tags        = var.tags
 }
 
-resource "null_resource" "cluster_wait" {
-  triggers = {
-    cluster_id = ibm_container_vpc_cluster.cluster.id
-  }
-  provisioner "local-exec" {
-    command = <<EOT
-sleep 120
-EOT
-  }
-  depends_on = [ibm_container_vpc_cluster.cluster]
-}
+# resource "null_resource" "cluster_wait" {
+#   triggers = {
+#     cluster_id = ibm_container_vpc_cluster.cluster.id
+#   }
+#   provisioner "local-exec" {
+#     command = <<EOT
+#     sleep 120
+#     EOT
+#   }
+#   depends_on = [ibm_container_vpc_cluster.cluster]
+# }
 
 resource "ibm_container_vpc_worker_pool" "worker_pools" {
   for_each          = { for pool in var.worker_pools : pool.pool_name => pool }
-  cluster           = ibm_container_vpc_cluster.cluster.id
+  cluster           = ibm_container_vpc_cluster.cluster_perf.id
   resource_group_id = ibm_resource_group.resource_group.id
   worker_pool_name  = each.key
   flavor            = lookup(each.value, "machine_type", null)
   vpc_id            = ibm_is_vpc.vpc.id
-  # worker_count = lookup(each.value, "min_size", null)
-  worker_count = each.value.workers_per_zone
+  worker_count      = each.value.workers_per_zone
 
   # labels = merge({ "worker_pool_name" = each.key }, each.value.labels)
 
@@ -52,5 +51,11 @@ resource "ibm_container_vpc_worker_pool" "worker_pools" {
     }
   }
 
-  depends_on = [null_resource.cluster_wait]
+  taints {
+    key    = "dedicated"
+    value  = "edge"
+    effect = "NoExecute"
+  }
+
+  # depends_on = [null_resource.cluster_wait]
 }

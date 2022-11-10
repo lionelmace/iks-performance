@@ -43,7 +43,12 @@ variable "tags" {
 # OpenShift Variables
 ##############################################################################
 
-variable "cluster_name" {
+variable "cluster_name_std" {
+  description = "Cluster Name"
+  default     = "standard"
+}
+
+variable "cluster_name_perf" {
   description = "Cluster Name"
   default     = "standard"
 }

@@ -145,8 +145,8 @@ Let's deploy an NGINX app
     spec:
       tls:
         - hosts:
-        - $IKS_INGRESS_URL
-        secretName: $IKS_INGRESS_SECRET
+          - $IKS_INGRESS_URL
+          secretName: $IKS_INGRESS_SECRET
       rules:
       - host: $IKS_INGRESS_URL
         http:

@@ -158,6 +158,7 @@ Let's deploy an NGINX app
                 name: mynginx
                 port:
                 number: 8080
+    EOF
     ```
 
 1. Open a browser and check out the app with the following URL:

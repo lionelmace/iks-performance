@@ -150,8 +150,8 @@ Let's deploy an NGINX app
       rules:
       - host: $IKS_INGRESS_URL
         http:
-        paths:
-        - path: /
+          paths:
+          - path: /
             pathType: Prefix
             backend:
               service:

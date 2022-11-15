@@ -87,15 +87,15 @@ variable "worker_pools" {
 
   default = [
     {
-      pool_name        = "dev"
+      pool_name        = "edge"
       machine_type     = "bx2.4x16"
       workers_per_zone = 2
-      # },
+      },
       # {
       #     pool_name        = "odf"
       #     machine_type     = "bx2.16x64"
       #     workers_per_zone = 1
-    }
+    # }
   ]
 
   validation {

@@ -25,7 +25,7 @@ cluster_name_std  = "cluster-std"
 cluster_name_perf = "cluster-perf"
 machine_type      = "bx2.4x16"
 worker_count      = 1
-kube_version      = "1.25.3"
+kube_version      = "1.25.4"
 # Possible values: MasterNodeReady, OneWorkerNodeReady, or IngressReady
 # kubernetes_wait_till          = "OneWorkerNodeReady"
 # kubernetes_update_all_workers = false

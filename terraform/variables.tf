@@ -62,7 +62,7 @@ variable "machine_type" {
 variable "kube_version" {
   description = "Specify the Kubernetes version, including the major.minor version. To see available versions, run `ibmcloud ks versions`."
   type        = string
-  default     = "1.25.3"
+  default     = "1.25.4"
 }
 
 variable "worker_count" {

@@ -59,6 +59,7 @@ data:
 events {
 }
 http {
+   keepalive_requests 100000;
    server {
        listen 80;
        index index.html;

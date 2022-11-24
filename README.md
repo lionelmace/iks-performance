@@ -92,3 +92,9 @@ Let's use terraform to create two clusters in a VPC environment:
 Let's use the k6 open-source load testing tool
 
 1. Open the locust app
+
+## Resources
+
+    * [Tuning ALB performance](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#perf_tuning)
+    * [Setting a maximum number of upstream keepalive requests](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#upstream-keepalive-requests)
+    * [Scale ALBs](https://cloud.ibm.com/docs/containers?topic=containers-ingress-types#scale_albs)

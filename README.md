@@ -28,16 +28,16 @@ Let's use terraform to create two clusters in a VPC environment:
     >    effect = "NoExecute"
     > }
 
-## Deploy a test app
+## Install the load testing app: Locust
 
-Let's deploy an NGINX app
+  [Install locust](./kubernetes/locust/readme.md)
 
-## Deploy with Ingress
+## Deploy the testing app
 
 1. Navigate to the folder **kubernetes**.
 
     ```sh
-    cd kubernetes
+    cd kubernetes/apps
     ```
 
 1. Replace the cluster-name (including <>) with the the cluster name.
@@ -73,92 +73,12 @@ Let's deploy an NGINX app
     iks-325510-483cccd2f0d38128dd40d2b711142ba9-0000
     ```
 
-1. Deploy the container into your cluster.
+1. Modify the yaml app
+
+1. Deploy the app into your cluster.
   
     ```sh
-    kubectl apply -f - <<EOF
-    ---
-    # Application to deploy
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: mynginx
-      namespace: default
-    spec:
-      replicas: 3
-      selector:
-        matchLabels:
-          app: mynginx
-      template:   # create pods using pod definition in this template
-        metadata:
-          labels:
-            app: mynginx
-            tier: frontend
-        spec:
-          containers:
-          - name: mynginx
-            image: nginx
-            imagePullPolicy: Always
-            resources:
-              requests:
-                cpu: 250m     # 250 millicores = 1/4 core
-                memory: 128Mi # 128 MB
-              limits:
-                cpu: 500m
-                memory: 384Mi
-            livenessProbe:
-              httpGet:
-                path: /healthcheck/
-                port: 8080
-              initialDelaySeconds: 3
-              periodSeconds: 3
-              failureThreshold: 2        
-
-    ---
-    # Service to expose frontend
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: mynginx
-      namespace: default
-      labels:
-        app: mynginx
-        tier: frontend
-    spec:
-        ports:
-        - protocol: TCP
-          port: 80
-        selector:
-          app: mynginx
-          tier: frontend
-
-    ---
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    metadata:
-      name: mynginx-ingress
-      namespace: default
-      annotations:
-        kubernetes.io/ingress.class: "public-iks-k8s-nginx"
-        #kubernetes.io/ingress.class: "private-iks-k8s-nginx"
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    spec:
-      tls:
-        - hosts:
-          - $IKS_INGRESS_URL
-          secretName: $IKS_INGRESS_SECRET
-      rules:
-      - host: $IKS_INGRESS_URL
-        http:
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: mynginx
-                port:
-                  number: 80
-    EOF
+    kubectl apply -f my-service-nginx.yaml
     ```
 
 1. Open a browser and check out the app with the following URL:
@@ -171,20 +91,10 @@ Let's deploy an NGINX app
 
 Let's use the k6 open-source load testing tool
 
-1. Let's install k6
+1. Open the locust app
 
-    ```sh
-    brew install k6
-    ```
+## Resources
 
-1. Test an app
-
-    ```sh
-    k6 run - <<EOF
-    import http from 'k6/http';
-
-    export default function () {
-      http.get('http://$IKS_INGRESS_URL');
-    }
-    EOF
-    ```
+    * [Tuning ALB performance](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#perf_tuning)
+    * [Setting a maximum number of upstream keepalive requests](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#upstream-keepalive-requests)
+    * [Scale ALBs](https://cloud.ibm.com/docs/containers?topic=containers-ingress-types#scale_albs)

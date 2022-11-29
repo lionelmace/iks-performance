@@ -66,9 +66,9 @@ variable "kube_version" {
 }
 
 variable "worker_count" {
-  description = "Specify the number of workers."
+  description = "Specify the number of workers per zone."
   type        = number
-  default     = "2"
+  default     = "1"
 }
 
 variable "is_openshift_cluster" {
@@ -89,7 +89,7 @@ variable "worker_pools" {
     {
       pool_name        = "edge"
       machine_type     = "bx2.4x16"
-      workers_per_zone = 2
+      workers_per_zone = 1
       },
       # {
       #     pool_name        = "odf"
@@ -114,13 +114,13 @@ variable "worker_pools" {
     ])) == length(var.worker_pools)
   }
 
-  validation {
-    error_message = "Worker pools must have at least two workers per zone."
-    condition = length([
-      for pool in var.worker_pools :
-      false if pool.workers_per_zone < 2
-    ]) == 0
-  }
+  # validation {
+  #   error_message = "Worker pools must have at least two workers per zone."
+  #   condition = length([
+  #     for pool in var.worker_pools :
+  #     false if pool.workers_per_zone < 2
+  #   ]) == 0
+  # }
 
 }
 

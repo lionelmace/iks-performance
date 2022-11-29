@@ -80,7 +80,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: locust-master-load-testing.iks-ctolon-ac-3268673556886c1344ef7edfc91b3fdc-0000.eu-gb.containers.appdomain.cloud
+  - host: <host>
     http:
       paths:
       - path: /

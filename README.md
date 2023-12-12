@@ -95,6 +95,6 @@ Let's use the k6 open-source load testing tool
 
 ## Resources
 
-    * [Tuning ALB performance](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#perf_tuning)
-    * [Setting a maximum number of upstream keepalive requests](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#upstream-keepalive-requests)
-    * [Scale ALBs](https://cloud.ibm.com/docs/containers?topic=containers-ingress-types#scale_albs)
+* [Tuning ALB performance](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#perf_tuning)
+* [Setting a maximum number of upstream keepalive requests](https://cloud.ibm.com/docs/containers?topic=containers-comm-ingress-annotations#upstream-keepalive-requests)
+* [Scale ALBs](https://cloud.ibm.com/docs/containers?topic=containers-ingress-types#scale_albs)
